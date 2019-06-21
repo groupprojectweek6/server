@@ -30,9 +30,14 @@ class ControllerUser {
   }
 
   static register(req, res, next) {
-    let schemaField = Object.keys(User.prototype.schema.paths)
-    let filteredField = Object.keys(req.body).filter((x) => schemaField.indexOf(x) > -1)
-    let newUser = filteredField.reduce((acc, el) => Object.assign(acc, {[el]: req.body[el]}), {})
+    let newUser = {
+      full_name: req.body.full_name,
+      password: req.body.password,
+      email: req.body.email,
+      gender: req.gender,
+      emotion: req.emotion,
+      image: req.file.gcsUrl
+    }
     User.create(newUser)
       .then((user) => {
         res.json(user)
