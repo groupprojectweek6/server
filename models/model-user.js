@@ -26,7 +26,7 @@ var userSchema = new Schema({
     }]
   },
   gender: String,
-  imgUrl: String,
+  image: String,
 }, {timestamps: true});
 
 userSchema.pre('save', function(next) {
