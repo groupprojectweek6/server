@@ -25,15 +25,14 @@ var userSchema = new Schema({
       message: props => `${props.value} is already in our database. Please use other email`
     }]
   },
-  gender: String,
-  imgUrl: String,
+  gender: Array,
+  emotion: Array,
+  image: String,
 }, {timestamps: true});
 
 userSchema.pre('save', function(next) {
   this.password = generateHash(this.password)
   next();
 });
-
 var User = mongoose.model('User', userSchema);
-
 module.exports = User
