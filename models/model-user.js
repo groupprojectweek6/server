@@ -25,7 +25,8 @@ var userSchema = new Schema({
       message: props => `${props.value} is already in our database. Please use other email`
     }]
   },
-  gender: String,
+  gender: Array,
+  emotion: Array,
   image: String,
 }, {timestamps: true});
 
