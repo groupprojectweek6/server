@@ -85,12 +85,29 @@ class ControllerUser {
         ]
       )
       .then((result) => {
-        console.log('hasil aggregation', result);
-        console.log(result[0]._id);
-        console.log(result[0].dataUser);
-        console.log(typeof result[0]._id);
-        
-        res.status(200).json(result[0])
+        if (result.length == 0) {
+          return User.findById(req.userId)
+        } else {
+          return res.status(200).json(result[0])
+        }
+        // console.log('hasil aggregation', result);
+        // console.log(result[0]._id);
+        // console.log(result[0].dataUser);
+        // console.log(typeof result[0]._id);
+      })
+      .then((user) => {
+        let sendUser = {
+          _id: user._id,
+          count: 0,
+          dataUser: [{
+            full_name: user.full_name,
+            email: user.email,
+            gender: user.gender,
+            emotion: user.emotion,
+            image: user.image
+          }]
+        }
+        res.status(200).json(sendUser)
       })
       .catch(next)
     // User.findOne({ _id: req.userId })
