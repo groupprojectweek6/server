@@ -57,6 +57,25 @@ class ControllerVote {
       .catch(next)
   }
 
+  static getNewUsers(req, res, next) {
+    Users.aggregate([
+      {
+        $project: {
+          _id: 1,
+          full_name: 1,
+          email: 1,
+          gender: 1,
+          emotion: 1,
+          image: 1,
+        }
+      }
+    ])
+      .then((users) => {
+        res.status(200).json(users)
+      })
+      .catch(next)
+  }
+
   static readAllTop20(req, res, next) {
     Voting 
       .aggregate(
@@ -84,7 +103,8 @@ class ControllerVote {
               "dataUser.full_name": 1,
               "dataUser.email": 1,
               "dataUser.gender": 1,
-              "dataUser.imgUrl": 1,
+              "dataUser.emotion": 1,
+              "dataUser.image": 1,
             } 
           }
         ]
